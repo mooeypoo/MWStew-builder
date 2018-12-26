@@ -1,0 +1,10 @@
+<phpunit backupGlobals="true" bootstrap="../vendor/autoload.php">
+	<filter>
+		<whitelist>
+			<directory>/tests</directory>
+		</whitelist>
+	</filter>
+	<testsuite>
+		<directory>./</directory>
+	</testsuite>
+</phpunit>

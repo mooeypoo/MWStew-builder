@@ -1,0 +1,22 @@
+{
+  "name": "mooeypoo/mwstew-builder",
+  "description": "A PHP backend to creating mediawiki extension files",
+  "authors": [
+    {
+      "name": "Moriel Schottlender",
+      "email": "mooeypoo@gmail.com",
+      "homepage": "http://moriel.smarterthanthat.com",
+      "role": "Developer"
+    }
+  ],
+	"require": {
+		"twig/twig": "^1.0",
+		"respect/validation": "^1.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^4.8"
+	},
+  "autoload": {
+      "psr-4": { "MWStew\\Builder\\": "includes/" }
+  }
+}
