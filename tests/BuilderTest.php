@@ -1,6 +1,7 @@
 <?php
 
-class BuilderTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class BuilderTest extends TestCase {
 
 	public function testBuilderInstance() {
 		$params = array(
@@ -10,5 +11,7 @@ class BuilderTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$builder = new MWStew\Builder\Builder( '', 'My Extension' );
+
+		$this->assertInstanceOf(MWStew\Builder\Builder::class, $builder);
 	}
 }
