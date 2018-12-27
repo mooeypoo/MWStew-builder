@@ -4,10 +4,9 @@ use MWStew\Builder\Sanitizer;
 use PHPUnit\Framework\TestCase;
 
 class SanitizerTest extends TestCase {
-
 	public function testSanitizerParams() {
 		$params = array(
-			'text' => 'response',
+			'name' => 'response',
 			'array' => array( 1, 2, 3 ),
 			'object' => array( 'one' => 'two' ),
 		);
@@ -16,7 +15,7 @@ class SanitizerTest extends TestCase {
 
 		$this->assertEquals(
 			'response',
-			$sanitizer->getParam( 'text' )
+			$sanitizer->getParam( 'name' )
 		);
 		$this->assertEquals(
 			array( 1, 2, 3 ),
@@ -115,5 +114,16 @@ class SanitizerTest extends TestCase {
 				}
 			}
 		}
+	}
+
+	public function testSanitizerConstructor() {
+		$sanitizer = new Sanitizer( [ 'name' => 'testName' ] );
+		$this->assertEquals(
+			0,
+			count( $sanitizer->getErrors() )
+		);
+
+		$this->expectException(Exception::class);
+		$sanitizer = new Sanitizer( [ 'name' => 'foo bar baz' ] );
 	}
 }

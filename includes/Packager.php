@@ -3,10 +3,10 @@
 namespace MWStew\Builder;
 
 /**
- * Class to build the hierarchical file information
+ * Class to package the hierarchical file information
  * for the extension.
  */
-class Builder {
+class Packager {
 	protected $files = array();
 
 	public function addFile( $filename, $content ) {

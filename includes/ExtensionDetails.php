@@ -3,7 +3,7 @@
 namespace MWStew\Builder;
 
 class ExtensionDetails {
-	public static $param_prefix = 'ext_';
+	protected $param_prefix = '';
 
 	protected $name = '';
 	protected $title = '';
@@ -26,7 +26,8 @@ class ExtensionDetails {
 
 	protected $hooks = array();
 
-	public function __construct( $formParams ) {
+	public function __construct( $formParams, $prefix = '' ) {
+		$this->param_prefix = $prefix;
 		$this->rawParams = $formParams;
 
 		$this->setName( $this->getRawParam( 'name' ) );
@@ -52,8 +53,8 @@ class ExtensionDetails {
 	}
 
 	protected function getRawParam( $paramName ) {
-		return isset( $this->rawParams[ self::$param_prefix . $paramName ] ) ?
-			$this->rawParams[ self::$param_prefix . $paramName ] :
+		return isset( $this->rawParams[ $this->param_prefix . $paramName ] ) ?
+			$this->rawParams[ $this->param_prefix . $paramName ] :
 			null;
 	}
 
@@ -201,17 +202,26 @@ class ExtensionDetails {
 		$json = [
 			'name' => $this->getName(),
 			'version' => $this->version,
-			'author' => [ $this->author ],
-			'url' => $this->url,
 			'namemsg' => $this->getLowerCamelName(),
 			'descriptionmsg' => $this->getLowerCamelName() . '-desc',
-			'license-name' => $this->license,
 			'type' => 'other',
 			'manifest_version' => 1,
 			'MessagesDirs' => [],
 			'AutoloadClasses' => [],
 		];
 		$json[ 'MessagesDirs' ][ $this->getName() ] = [ 'i18n' ];
+
+		if ( $this->author ) {
+			$json[ 'author' ] = [ $this->author ];
+		}
+
+		if ( $this->url ) {
+			$json[ 'url' ] = $this->url;
+		}
+
+		if ( $this->license ) {
+			$json[ 'license-name' ] = $this->license;
+		}
 
 		// JavaScript
 		if ( $this->isEnvironment( 'js' ) ) {
@@ -282,7 +292,7 @@ class ExtensionDetails {
 	 */
 	public function getLangFileJson( $type = 'lang', $outputAsString = true ) {
 		$lang = [
-			'@metadata' => [ 'authors' => [ $this->author ] ]
+			'@metadata' => [ 'authors' => $this->author ? [ $this->author ] : [] ]
 		];
 
 		$lang[ $this->getLowerCamelName() ] = $type == 'lang' ?
@@ -290,7 +300,7 @@ class ExtensionDetails {
 			'The name of the extension';
 
 		$lang[ $this->getLowerCamelName() . '-desc' ] = $type == 'lang' ?
-			$this->desc :
+			( $this->desc ? $this->desc : '' ) :
 			'{{desc|name=' . $this->getName() . '|url=' . $this->url . '}}';
 
 		if ( $this->hasSpecialPage() ) {

@@ -7,15 +7,22 @@ use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Exceptions\ValidationException;
 
 class Sanitizer {
-	protected $fieldPrefix = 'ext_';
+	protected $fieldPrefix = '';
 	protected $rawParams = array();
 	protected $errors = array();
 
 
-	public function __construct( $params ) {
+	public function __construct( $params, $fieldPrefix = '' ) {
 		$this->rawParams = $params;
+		$this->fieldPrefix = $fieldPrefix;
 
-		return !$this->validateParams();
+		if ( !$this->validateParams() ) {
+			// Validation failed.
+			// TODO: Deal with validation better :\
+			throw new \Exception(
+				json_encode( $this->getErrors() )
+			);
+		}
 	}
 
 	public static function validate( $type, $value = '' ) {
