@@ -22,6 +22,24 @@ To create MediaWiki extension files, you need to pass the required parameters to
     $generator->getFiles();
 ```
 
+To make an extension bundle, the generator expects data with expected keys. The 'name' key is mandatory, all others are optional:
+```php
+$data = [
+  'name' => (string) Extension name; English only, no spaces (Mandatory)
+  'title' => (string) Extension title or display name
+  'author' => (string) Extension author
+  'version' => (string|number) Extension version
+  'description' => (string) A short description for the extension.
+  'url' => (string) A URL for the extension
+  'license' => (string) License code for the extension. Expected a valid value to be used in composer.json and package.json
+  'dev_php' => (bool) Whether the extension should have the base files needed for a PHP development environment.
+  'dev_js' => (bool) Whether the extension should have the base files needed for a JavaScript development environment.
+  'specialpage_name' => (string) A name for a sepcial page. Must use valid characters for MediaWiki title.
+  'specialpage_title' => (string) A title for the special page.
+  'specialpage_intro' => (string) A short description or introduction text for the special page. This will appear at the top of the new special page that is created.
+]
+```
+
 You can then use the Zipper to add the files into a .zip file and output for download:
 
 ```php
