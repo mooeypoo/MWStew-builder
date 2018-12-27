@@ -39,15 +39,18 @@ class Generator {
 	 *      all data keys will be expected to have the same given prefix.
 	 *      This can be used to differentiate different forms for producing
 	 *      extensions or skins in the same request.
+	 *    'cacheDir' => (string) A directory for the extension file cache.
+	 *      if not given, an internal cache is used.
 	 *  ]
 	 */
 	public function __construct( $data = [], $config = [] ) {
 		$this->prefix = $this->getObjectProp( $config, [ 'prefix' ] );
+		$this->cacheDir = $this->getObjectProp( $config, [ 'cacheDir' ] );
 
 		$this->sanitizer = new Sanitizer( $data, $this->prefix );
 		$this->details = new ExtensionDetails( $this->sanitizer->getRawParams(), $this->prefix );
 
-		$this->templating = new Templating();
+		$this->templating = new Templating( $this->cacheDir );
 		$this->packager = new Packager();
 
 		$params = $this->details->getAllParams();
