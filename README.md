@@ -15,7 +15,7 @@ This tool is available on packagist. Add it to your project with
 
 To create MediaWiki extension files, you need to pass the required parameters to the `Generator`:
 
-```
+```php
     // Send $data with the definition of required values for the extension
     $generator = new MWStew\Builder\Generator( $data );
     // The file structure is available by request
@@ -24,9 +24,9 @@ To create MediaWiki extension files, you need to pass the required parameters to
 
 You can then use the Zipper to add the files into a .zip file and output for download:
 
-```
+```php
     $tempFolder = dirname( __DIR__ ) . '/temp';
-    $zip = new MWStew\Zipper( $tempFolder, 'someName' );
+    $zip = new MWStew\Builder\Zipper( $tempFolder, 'someName' );
     $zip->addFilesToZip( $generator->getFiles() );
     $zip->download();
 ```
