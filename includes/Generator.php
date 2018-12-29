@@ -68,24 +68,24 @@ class Generator {
 
 		// JS Development files
 		if ( $this->details->isEnvironment( 'js' ) ) {
-			$this->packager->addFile( '.eslintrc.json', $templating->render( '.eslintrc.json' ) );
-			$this->packager->addFile( '.stylelintrc', $templating->render( '.stylelintrc' ) );
-			$this->packager->addFile( 'Gruntfile.js', $templating->render( 'Gruntfile.js' ) );
-			$this->packager->addFile( 'package.json', $templating->render( 'package.json', $params ) );
-			$this->packager->addFile( 'modules/ext.' . $this->details->getLowerCamelName() . '.js', $templating->render( 'modules/ext.extension.js', $params ) );
-			$this->packager->addFile( 'modules/ext.' . $this->details->getLowerCamelName() . '.css', $templating->render( 'modules/ext.extension.css', $params ) );
+			$this->packager->addFile( '.eslintrc.json', $this->templating->render( '.eslintrc.json' ) );
+			$this->packager->addFile( '.stylelintrc', $this->templating->render( '.stylelintrc' ) );
+			$this->packager->addFile( 'Gruntfile.js', $this->templating->render( 'Gruntfile.js' ) );
+			$this->packager->addFile( 'package.json', $this->templating->render( 'package.json', $params ) );
+			$this->packager->addFile( 'modules/ext.' . $this->details->getLowerCamelName() . '.js', $this->templating->render( 'modules/ext.extension.js', $params ) );
+			$this->packager->addFile( 'modules/ext.' . $this->details->getLowerCamelName() . '.css', $this->templating->render( 'modules/ext.extension.css', $params ) );
 
 			// Add unit test file
-			$this->packager->addFile( 'tests/' . $this->details->getName() . '.test.js', $templating->render( 'tests/qunit.js', $params ) );
-			$this->packager->addFile( 'tests/.eslintrc.json', $templating->render( 'tests/.eslintrc.json' ) );
+			$this->packager->addFile( 'tests/' . $this->details->getName() . '.test.js', $this->templating->render( 'tests/qunit.js', $params ) );
+			$this->packager->addFile( 'tests/.eslintrc.json', $this->templating->render( 'tests/.eslintrc.json' ) );
 		}
 
 		// PHP Development files
 		if ( $this->details->isEnvironment( 'php' ) ) {
-			$this->packager->addFile( 'composer.json', $templating->render( 'composer.json' ) );
+			$this->packager->addFile( 'composer.json', $this->templating->render( 'composer.json' ) );
 
 			// Add unit test file
-			$this->packager->addFile( 'tests/' . $this->details->getName() . '.test.php', $templating->render( 'tests/phpunit.php', $params ) );
+			$this->packager->addFile( 'tests/' . $this->details->getName() . '.test.php', $this->templating->render( 'tests/phpunit.php', $params ) );
 		}
 
 		// Special page
@@ -94,9 +94,9 @@ class Generator {
 			// Special page
 			$this->packager->addFile(
 				'specials/' . $this->details->getSpecialPageClassName() . '.php',
-				$templating->render( 'specials/SpecialPage.php', $params )
+				$this->templating->render( 'specials/SpecialPage.php', $params )
 			);
-			$this->packager->addFile( $this->details->getName() . '.alias.php', $templating->render( 'extension.alias.php', $params ) );
+			$this->packager->addFile( $this->details->getName() . '.alias.php', $this->templating->render( 'extension.alias.php', $params ) );
 		}
 	}
 
