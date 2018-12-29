@@ -18,7 +18,7 @@
 		"phpunit/phpunit": "^7.5"
 	},
   "scripts": {
-    "test-php": "./vendor/bin/phpunit --colors --verbose --configuration tests/phpunit.xml"
+    "test": "./vendor/bin/phpunit --colors --verbose --configuration tests/phpunit.xml"
   },
   "autoload": {
       "psr-4": { "MWStew\\Builder\\": "includes/" }
