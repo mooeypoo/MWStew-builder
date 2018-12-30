@@ -2,10 +2,16 @@ language: php
 
 php: 7.2
 
+before_install:
+  - composer install --dev
+
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction
 
 script:
   - composer validate
-  - phpunit --configuration tests/phpunit.xml
+  - phpunit --coverage-clover ./tests/logs/clover.xml --configuration tests/phpunit.xml
+
+after_script:
+- php vendor/bin/coveralls -v

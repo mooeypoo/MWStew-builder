@@ -1,3 +1,4 @@
+tests/log/
 vendor/
 cache/*
 !cache/.gitkeep

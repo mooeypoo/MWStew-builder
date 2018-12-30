@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.org/mooeypoo/MWStew.svg?branch=master)](https://travis-ci.org/mooeypoo/MWStew-builder)
+[![Coverage Status](https://coveralls.io/repos/github/mooeypoo/MWStew-builder/badge.svg?branch=master)](https://coveralls.io/github/mooeypoo/MWStew-builder?branch=master)
 [![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg?style=plastic)](https://raw.githubusercontent.com/mooeypoo/MWStew-builder/master/LICENSE)
 
-# MWStew-builder: A backend PHP for building MediaWiki extension files
+# MWStew-builder: A backend PHP library for building MediaWiki extension files
 
 ## Development
 This tool is fairly stable, but is currently going through QA and testing, and is continuously developed. Please report any bugs you encounter!

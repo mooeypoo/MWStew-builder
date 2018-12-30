@@ -1,7 +1,7 @@
 <phpunit backupGlobals="true" colors="true" bootstrap="../vendor/autoload.php">
 	<filter>
-		<whitelist>
-			<directory>/tests</directory>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory>../includes</directory>
 		</whitelist>
 	</filter>
 	<testsuite name="builder">
