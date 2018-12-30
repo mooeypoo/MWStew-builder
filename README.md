@@ -4,15 +4,14 @@
 
 # MWStew-builder: A backend PHP library for building MediaWiki extension files
 
-## Development
-This tool is fairly stable, but is currently going through QA and testing, and is continuously developed. Please report any bugs you encounter!
-
 **Feel free to contribute!**
 
 ## Usage
 This tool is available on packagist. Add it to your project with
 
-`composer install mooeypoo/mwstew-builder`
+```
+composer install mooeypoo/mwstew-builder
+```
 
 To create MediaWiki extension files, you need to pass the required parameters to the `Generator`:
 
@@ -22,6 +21,9 @@ To create MediaWiki extension files, you need to pass the required parameters to
     // The file structure is available by request
     $generator->getFiles();
 ```
+The builder does not write files to the file system, it only builds the structure and lets you handle the rest.
+
+### Expected data
 
 To make an extension bundle, the generator expects data with expected keys. The 'name' key is mandatory, all others are optional:
 ```php
@@ -40,6 +42,7 @@ $data = [
   'specialpage_intro' => (string) A short description or introduction text for the special page. This will appear at the top of the new special page that is created.
 ]
 ```
+### Using the files
 
 You can then use the Zipper to add the files into a .zip file and output for download:
 
@@ -50,19 +53,21 @@ You can then use the Zipper to add the files into a .zip file and output for dow
     $zip->download();
 ```
 
-## Development
-If you want to contribute, clone and initialize locally:
+Or you can create the fils on the file system yourself. To see an example of that, see [MWStew-CLI](https://github.com/mooeypoo/MWStew-CLI) for the command line tool.
+
+## Contribute
+This is fully open source tool. Pull requests are welcome! Please participate and help make this a great tool!
+
+If you have suggestions or bug reports, please [submit an issue](https://github.com/mooeypoo/MWStew-builder/issues).
+
+If you want to contribute to the code, clone and initialize locally:
 
 1. Clone the repo
 2. Run `composer install`
-3. Run `composer test-php` to run tests
+3. Run `composer run test` to run tests
 
-See [MWStew](https://github.com/mooeypoo/MWStew) for the graphical interface.
-
-## Contribute
-This is fully open source tool. It will be hosted so anyone that wants to use it can do so without running the script.
-
-Pull requests are welcome! Please participate and help make this a great tool!
+* See [MWStew](https://github.com/mooeypoo/MWStew) for the graphical interface.
+* See [MWStew-CLI](https://github.com/mooeypoo/MWStew-CLI) for the command line tool.
 
 ## Authors
 Moriel Schottlender (mooeypoo)
