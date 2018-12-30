@@ -81,8 +81,90 @@ class GeneratorTest extends TestCase {
 			'Nonexisting set of keys'
 		);
 	}
+	public function testFileList() {
+		$cases = [
+			[
+				'data' => [ 'name' => 'testName' ],
+				'msg' => 'Name only',
+				'expected' => [
+					'extension.json',
+					'i18n/en.json',
+					'i18n/qqq.json'
+				]
+			],
+			[
+				'data' => [ 'name' => 'testName', 'specialpage_name' => 'Foobar' ],
+				'msg' => 'Special page',
+				'expected' => [
+					'extension.json',
+					'i18n/en.json',
+					'i18n/qqq.json',
+					'specials/SpecialFoobar.php',
+					'testName.alias.php',
+				]
+			],
+			[
+				'data' => [ 'name' => 'testName', 'dev_js' => true ],
+				'msg' => 'JS development environment',
+				'expected' => [
+					'extension.json',
+					'i18n/en.json',
+					'i18n/qqq.json',
+					'.eslintrc.json',
+					'.stylelintrc',
+					'Gruntfile.js',
+					'package.json',
+					'modules/ext.testName.js',
+					'modules/ext.testName.css',
+					'tests/testName.test.js',
+					'tests/.eslintrc.json',
+				]
+			],
+			[
+				'data' => [ 'name' => 'testName', 'dev_php' => true ],
+				'msg' => 'PHP development environment',
+				'expected' => [
+					'extension.json',
+					'i18n/en.json',
+					'i18n/qqq.json',
+					'composer.json',
+					'tests/testName.test.php',
+				]
+			],
+			[
+				'data' => [ 'name' => 'testName', 'dev_js' => true, 'dev_php' => true ],
+				'msg' => 'PHP and JS development environments',
+				'expected' => [
+					'extension.json',
+					'i18n/en.json',
+					'i18n/qqq.json',
+					'.eslintrc.json',
+					'.stylelintrc',
+					'Gruntfile.js',
+					'package.json',
+					'modules/ext.testName.js',
+					'modules/ext.testName.css',
+					'tests/testName.test.js',
+					'tests/.eslintrc.json',
+					'composer.json',
+					'tests/testName.test.php',
+				]
+			],
+		];
 
-	public function testFiles() {
+		foreach ( $cases as $testCase ) {
+			$generator = new Generator( $testCase['data'] );
+			$files = $generator->getFiles();
+
+			$this->assertEquals(
+				$testCase[ 'expected' ],
+				array_keys( $files ),
+				$testCase[ 'msg' ]
+			);
+		}
+	}
+
+	public function testFileContents() {
 		$cases = [
 			[
 				'data' => [ 'name' => 'testName' ],
@@ -105,6 +187,31 @@ class GeneratorTest extends TestCase {
 					'i18n/qqq.json' => [
 						'testName' => 'The name of the extension',
 						'testName-desc' => '{{desc|name=testName|url=}}',
+					],
+				],
+			],
+			[
+				'data' => [ 'name' => 'testName', 'url' => 'http://www.demo.com/testURL' ],
+				'msg' => 'Giving name and URL',
+				'config' => [],
+				'expectedFileCount' => 3,
+				'expectedFiles' => [
+					'extension.json' => [
+						'name' => 'testName',
+						'namemsg' => 'testName',
+						'descriptionmsg' => 'testName-desc',
+						'MessagesDirs' => [
+							'testName' => [ 'i18n' ]
+						],
+						'url' => 'http://www.demo.com/testURL'
+					],
+					'i18n/en.json' => [
+						'testName' => 'testName',
+						'testName-desc' => '',
+					],
+					'i18n/qqq.json' => [
+						'testName' => 'The name of the extension',
+						'testName-desc' => '{{desc|name=testName|url=http://www.demo.com/testURL}}',
 					],
 				],
 			],

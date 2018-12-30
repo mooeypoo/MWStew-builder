@@ -31,15 +31,4 @@ class Templating {
 
 		return $this->twig->render( $filename, $data );
 	}
-
-	public function clearCache() {
-		// Twig no longer clears cache on its own
-		// We'll have to clear it manually
-		$files = glob( dirname( __DIR__ ) . '/' . $this->cacheDir . '/*' );
-		foreach( $files as $file ) {
-			if ( is_file( $file ) ) {
-				// unlink( $file );
-			}
-		}
-	}
 }

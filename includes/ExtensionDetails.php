@@ -88,10 +88,6 @@ class ExtensionDetails {
 		}
 	}
 
-	public function getLicense() {
-		return $this->license;
-	}
-
 	public function setDevEnv( $isPhp, $isJs ) {
 		$this->devEnvironment[ 'php' ] = (bool)$isPhp;
 		$this->devEnvironment[ 'js' ] = (bool)$isJs;
@@ -126,28 +122,16 @@ class ExtensionDetails {
 		);
 	}
 
+	public function getLicense() {
+		return $this->license;
+	}
+
 	public function hasSpecialPage() {
 		return ( (bool) $this->specialName );
 	}
 
 	public function getSpecialPageClassName() {
 		return 'Special' . str_replace( ' ', '_', $this->specialName );
-	}
-
-	public function getHooks() {
-		return $this->hooks;
-	}
-
-	protected function sanitizeHookFunctionName( $hook ) {
-		$hook = str_replace( '::', ':', $hook );
-		$parts = explode( ':', $hook );
-		$newHook = '';
-
-		foreach ( $parts as $p ) {
-			$newHook .= ucfirst( $p );
-		}
-
-		return $newHook;
 	}
 
 	public function getAllParams() {
@@ -176,13 +160,6 @@ class ExtensionDetails {
 			),
 		);
 
-		if ( count( $this->getHooks() ) > 0 ) {
-			$params[ 'hooks' ] = [];
-
-			foreach ( $this->getHooks() as $hook ) {
-				$params[ 'hooks' ][] = $hook;
-			}
-		}
 		return $params;
 	}
 
@@ -251,21 +228,6 @@ class ExtensionDetails {
 			$json[ 'AutoloadClasses' ][ $this->getSpecialPageClassName() ] = 'specials/' . $this->getSpecialPageClassName() . '.php';
 		}
 
-		// Hooks
-		$hookClassName = $this->getName() . 'Hooks';
-		if ( $this->isEnvironment( 'js' ) || count( $this->getHooks() ) ) {
-			$json[ 'AutoloadClasses' ][ $hookClassName ] = 'Hooks.php';
-		}
-
-		// Hook list
-		if ( count( $this->getHooks() ) > 0 ) {
-			$json[ 'Hooks' ] = [];
-
-			foreach ( $this->getHooks() as $hook ) {
-				$json[ 'Hooks' ][ $hook ] = [ $hookClassName . '::on' . $this->sanitizeHookFunctionName( $hook ) ];
-			}
-
-		}
 		if ( $this->isEnvironment( 'js' ) ) {
 			if ( !isset( $json[ 'Hooks' ] ) ) {
 				$json[ 'Hooks' ] = [];

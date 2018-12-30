@@ -2,6 +2,9 @@
 	<filter>
 		<whitelist addUncoveredFilesFromWhitelist="true">
 			<directory>../includes</directory>
+			<exclude>
+				<file>../includes/Zipper.php</file>
+			</exclude>
 		</whitelist>
 	</filter>
 	<logging>
