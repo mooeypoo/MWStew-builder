@@ -1,4 +1,4 @@
-tests/log/
+build/
 vendor/
 cache/*
 !cache/.gitkeep
