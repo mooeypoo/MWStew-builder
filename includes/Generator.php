@@ -58,6 +58,7 @@ class Generator {
 
 		// Extension file
 		$this->packager->addFile( 'extension.json', $this->details->getExtensionJson( true ) );
+		$this->packager->addFile( 'CODE_OF_CONDUCT.md', $this->templating->render( 'CODE_OF_CONDUCT.md' ) );
 		$license = $this->details->getLicense();
 		if ( $license ) {
 			$this->packager->addFile( 'COPYING', $this->templating->render( "$license.txt" ) );

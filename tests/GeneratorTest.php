@@ -88,6 +88,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'Name only',
 				'expected' => [
 					'extension.json',
+					'CODE_OF_CONDUCT.md',
 					'i18n/en.json',
 					'i18n/qqq.json'
 				]
@@ -97,6 +98,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'Special page',
 				'expected' => [
 					'extension.json',
+					'CODE_OF_CONDUCT.md',
 					'i18n/en.json',
 					'i18n/qqq.json',
 					'specials/SpecialFoobar.php',
@@ -108,6 +110,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'JS development environment',
 				'expected' => [
 					'extension.json',
+					'CODE_OF_CONDUCT.md',
 					'i18n/en.json',
 					'i18n/qqq.json',
 					'.eslintrc.json',
@@ -125,6 +128,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'PHP development environment',
 				'expected' => [
 					'extension.json',
+					'CODE_OF_CONDUCT.md',
 					'i18n/en.json',
 					'i18n/qqq.json',
 					'composer.json',
@@ -136,6 +140,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'PHP and JS development environments',
 				'expected' => [
 					'extension.json',
+					'CODE_OF_CONDUCT.md',
 					'i18n/en.json',
 					'i18n/qqq.json',
 					'.eslintrc.json',
@@ -170,7 +175,7 @@ class GeneratorTest extends TestCase {
 				'data' => [ 'name' => 'testName' ],
 				'msg' => 'Giving name only',
 				'config' => [],
-				'expectedFileCount' => 3,
+				'expectedFileCount' => 4,
 				'expectedFiles' => [
 					'extension.json' => [
 						'name' => 'testName',
@@ -194,7 +199,7 @@ class GeneratorTest extends TestCase {
 				'data' => [ 'name' => 'testName', 'url' => 'http://www.demo.com/testURL' ],
 				'msg' => 'Giving name and URL',
 				'config' => [],
-				'expectedFileCount' => 3,
+				'expectedFileCount' => 4,
 				'expectedFiles' => [
 					'extension.json' => [
 						'name' => 'testName',
@@ -219,7 +224,7 @@ class GeneratorTest extends TestCase {
 				'data' => [ 'name' => 'secondTest', 'title' => 'Some random extension' ],
 				'msg' => 'Giving name and display name',
 				'config' => [],
-				'expectedFileCount' => 3,
+				'expectedFileCount' => 4,
 				'expectedFiles' => [
 					'extension.json' => [
 						'name' => 'secondTest',
@@ -248,7 +253,7 @@ class GeneratorTest extends TestCase {
 				],
 				'msg' => 'Supplying name, title, description, author',
 				'config' => [],
-				'expectedFileCount' => 3,
+				'expectedFileCount' => 4,
 				'expectedFiles' => [
 					'extension.json' => [
 						'name' => 'thirdTest',
@@ -283,7 +288,7 @@ class GeneratorTest extends TestCase {
 				'config' => [],
 				// We will not check the contents of the license file,
 				// but we can make sure that there are 4 files instead of just 3
-				'expectedFileCount' => 4,
+				'expectedFileCount' => 5,
 				'expectedFiles' => [
 					'extension.json' => [
 						'name' => 'thirdTest',
