@@ -1,0 +1,17 @@
+{
+    "@metadata": {
+{% if author|length > 0 %}
+        "authors": [
+            "{{ author }}"
+        ]
+{% else %}
+        "authors": []
+{% endif %}
+    },
+    "{{ lowerCamelName }}": "{{ title }}",
+    "{{ lowerCamelName }}-desc": "{{ desc }}"
+{% if specialpage.name.name %}
+    "{{ specialpage.name.i18n }}-title": "{{ specialpage.title }}",
+    "{{ specialpage.name.i18n }}-intro": "{{ specialpage.intro }}",
+{% endif %}
+}

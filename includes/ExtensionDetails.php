@@ -242,40 +242,4 @@ class ExtensionDetails {
 			json_encode( $json, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE ) :
 			$json;
 	}
-
-	/**
-	 * Get the content of the language file in json format.
-	 *
-	 * @param string $type The file type; 'lang' for a language file
-	 *  and 'doc' for the qqq file.
-	 * @param  boolean [$outputAsString=true] Return a prettified json
-	 *  string. Otherwise, the object is returned.
-	 * @return array language file schema
-	 */
-	public function getLangFileJson( $type = 'lang', $outputAsString = true ) {
-		$lang = [
-			'@metadata' => [ 'authors' => $this->author ? [ $this->author ] : [] ]
-		];
-
-		$lang[ $this->getLowerCamelName() ] = $type == 'lang' ?
-			$this->title :
-			'The name of the extension';
-
-		$lang[ $this->getLowerCamelName() . '-desc' ] = $type == 'lang' ?
-			( $this->desc ? $this->desc : '' ) :
-			'{{desc|name=' . $this->getName() . '|url=' . $this->url . '}}';
-
-		if ( $this->hasSpecialPage() ) {
-			$lang[ $this->getSpecialPageKeyFormat() . '-intro' ] = $type == 'lang' ?
-				$this->specialTitle :
-				'Description appearing on top of <tvar|1>Special:{{ll|' . $this->specialName . '}}</>.';
-			$lang[ $this->getSpecialPageKeyFormat() . '-title' ] = $type == 'lang' ?
-				$this->specialIntro :
-				'Title of the special page Special:' . $this->specialName;
-		}
-
-		return $outputAsString ?
-			json_encode( $lang, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE ) :
-			$lang;
-	}
 }

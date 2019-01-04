@@ -185,14 +185,8 @@ class GeneratorTest extends TestCase {
 							'testName' => [ 'i18n' ]
 						]
 					],
-					'i18n/en.json' => [
-						'testName' => 'testName',
-						'testName-desc' => '',
-					],
-					'i18n/qqq.json' => [
-						'testName' => 'The name of the extension',
-						'testName-desc' => '{{desc|name=testName|url=}}',
-					],
+					'i18n/en.json' => 'nameonly.i18n.en.json',
+					'i18n/qqq.json' => 'nameonly.i18n.qqq.json',
 				],
 			],
 			[
@@ -210,14 +204,8 @@ class GeneratorTest extends TestCase {
 						],
 						'url' => 'http://www.demo.com/testURL'
 					],
-					'i18n/en.json' => [
-						'testName' => 'testName',
-						'testName-desc' => '',
-					],
-					'i18n/qqq.json' => [
-						'testName' => 'The name of the extension',
-						'testName-desc' => '{{desc|name=testName|url=http://www.demo.com/testURL}}',
-					],
+					'i18n/en.json' => 'nameurl.i18n.en.json',
+					'i18n/qqq.json' => 'nameurl.i18n.qqq.json',
 				],
 			],
 			[
@@ -234,14 +222,8 @@ class GeneratorTest extends TestCase {
 							'secondTest' => [ 'i18n' ]
 						]
 					],
-					'i18n/en.json' => [
-						'secondTest' => 'Some random extension',
-						'secondTest-desc' => '',
-					],
-					'i18n/qqq.json' => [
-						'secondTest' => 'The name of the extension',
-						'secondTest-desc' => '{{desc|name=secondTest|url=}}',
-					],
+					'i18n/en.json' => 'nametitle.i18n.en.json',
+					'i18n/qqq.json' => 'nametitle.i18n.qqq.json',
 				],
 			],
 			[
@@ -264,16 +246,8 @@ class GeneratorTest extends TestCase {
 							'thirdTest' => [ 'i18n' ]
 						]
 					],
-					'i18n/en.json' => [
-						'@metadata' => [ 'authors' => [ 'Moe Schmoe' ] ],
-						'thirdTest' => 'Another random extension',
-						'thirdTest-desc' => 'A description for the random extension',
-					],
-					'i18n/qqq.json' => [
-						'@metadata' => [ 'authors' => [ 'Moe Schmoe' ] ],
-						'thirdTest' => 'The name of the extension',
-						'thirdTest-desc' => '{{desc|name=thirdTest|url=}}',
-					],
+					'i18n/en.json' => 'nametitledescauthor.i18n.en.json',
+					'i18n/qqq.json' => 'nametitledescauthor.i18n.qqq.json',
 				],
 			],
 			[
@@ -300,20 +274,12 @@ class GeneratorTest extends TestCase {
 							'thirdTest' => [ 'i18n' ]
 						]
 					],
-					'i18n/en.json' => [
-						'@metadata' => [ 'authors' => [ 'Moe Schmoe' ] ],
-						'thirdTest' => 'Another random extension',
-						'thirdTest-desc' => 'A description for the random extension',
-					],
-					'i18n/qqq.json' => [
-						'@metadata' => [ 'authors' => [ 'Moe Schmoe' ] ],
-						'thirdTest' => 'The name of the extension',
-						'thirdTest-desc' => '{{desc|name=thirdTest|url=}}',
-					],
+					'i18n/en.json' => 'nametitledescauthorlicense.i18n.en.json',
+					'i18n/qqq.json' => 'nametitledescauthorlicense.i18n.qqq.json',
 				],
 			],
-		];
 
+		];
 		foreach ( $cases as $testCase ) {
 			$generator = new Generator( $testCase['data'], $testCase['config'] );
 			$files = $generator->getFiles();
@@ -325,14 +291,20 @@ class GeneratorTest extends TestCase {
 			);
 
 			foreach ( $testCase['expectedFiles'] as $fName => $fContent ) {
-				$this->assertEquals(
-					json_encode(
+				if ( is_array( $fContent ) ) {
+					$expected = json_encode(
 						$this->getArrayExtendedCopy(
 							$this->baseFileStructure[$fName],
 							$fContent
 						),
 						JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE
-					),
+					);
+				} else {
+					$expected = file_get_contents( __DIR__ . '/data/' . $fContent );
+				}
+
+				$this->assertEquals(
+					$expected,
 					$files[ $fName ],
 					$testCase['msg'] . ': File structure for ' . $fName
 				);

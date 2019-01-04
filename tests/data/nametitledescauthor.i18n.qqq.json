@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Moe Schmoe"
+        ]
+    },
+    "thirdTest": "The name of the extension",
+    "thirdTest-desc": "{{desc|name=thirdTest|url=}}"
+}

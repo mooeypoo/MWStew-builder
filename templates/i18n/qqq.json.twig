@@ -1,0 +1,17 @@
+{
+    "@metadata": {
+{% if author|length > 0 %}
+        "authors": [
+            "{{ author }}"
+        ]
+{% else %}
+        "authors": []
+{% endif %}
+    },
+    "{{ lowerCamelName }}": "The name of the extension",
+    "{{ lowerCamelName }}-desc": "{{'{{'}}desc|name={{ name }}|url={{ url }}{{ '}}' }}"
+{% if specialpage.name.name %}
+    "{{ specialpage.name.i18n }}-title": "Title of the special page Special:{{ specialpage.name.name }}",
+    "{{ specialpage.name.i18n }}-intro": "Description appearing on top of <tvar|1>Special:{{ '{{' }}ll|{{ specialpage.name.name }}{{ '}}' }}</>.",
+{% endif %}
+}

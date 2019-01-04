@@ -64,8 +64,10 @@ class Generator {
 			$this->packager->addFile( 'COPYING', $this->templating->render( "$license.txt" ) );
 		}
 		// Language file
-		$this->packager->addFile( 'i18n/en.json', $this->details->getLangFileJson( 'lang' ) );
-		$this->packager->addFile( 'i18n/qqq.json', $this->details->getLangFileJson( 'doc' ) );
+		$this->packager->addFile( 'i18n/en.json', $this->templating->render( 'i18n/en.json', $params ) );
+		$this->packager->addFile( 'i18n/qqq.json', $this->templating->render( 'i18n/qqq.json', $params ) );
+		// $this->packager->addFile( 'i18n/en.json', $this->details->getLangFileJson( 'lang' ) );
+		// $this->packager->addFile( 'i18n/qqq.json', $this->details->getLangFileJson( 'doc' ) );
 
 		// JS Development files
 		if ( $this->details->isEnvironment( 'js' ) ) {

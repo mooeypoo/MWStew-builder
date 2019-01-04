@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Moe Schmoe"
+        ]
+    },
+    "thirdTest": "Another random extension",
+    "thirdTest-desc": "A description for the random extension"
+}

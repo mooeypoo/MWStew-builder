@@ -1,0 +1,7 @@
+{
+    "@metadata": {
+        "authors": []
+    },
+    "testName": "The name of the extension",
+    "testName-desc": "{{desc|name=testName|url=http://www.demo.com/testURL}}"
+}
