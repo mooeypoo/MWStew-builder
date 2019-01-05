@@ -177,14 +177,7 @@ class GeneratorTest extends TestCase {
 				'config' => [],
 				'expectedFileCount' => 4,
 				'expectedFiles' => [
-					'extension.json' => [
-						'name' => 'testName',
-						'namemsg' => 'testName',
-						'descriptionmsg' => 'testName-desc',
-						'MessagesDirs' => [
-							'testName' => [ 'i18n' ]
-						]
-					],
+					'extension.json' => 'nameonly.extension.json',
 					'i18n/en.json' => 'nameonly.i18n.en.json',
 					'i18n/qqq.json' => 'nameonly.i18n.qqq.json',
 				],
@@ -195,15 +188,7 @@ class GeneratorTest extends TestCase {
 				'config' => [],
 				'expectedFileCount' => 4,
 				'expectedFiles' => [
-					'extension.json' => [
-						'name' => 'testName',
-						'namemsg' => 'testName',
-						'descriptionmsg' => 'testName-desc',
-						'MessagesDirs' => [
-							'testName' => [ 'i18n' ]
-						],
-						'url' => 'http://www.demo.com/testURL'
-					],
+					'extension.json' => 'nameurl.extension.json',
 					'i18n/en.json' => 'nameurl.i18n.en.json',
 					'i18n/qqq.json' => 'nameurl.i18n.qqq.json',
 				],
@@ -214,14 +199,7 @@ class GeneratorTest extends TestCase {
 				'config' => [],
 				'expectedFileCount' => 4,
 				'expectedFiles' => [
-					'extension.json' => [
-						'name' => 'secondTest',
-						'namemsg' => 'secondTest',
-						'descriptionmsg' => 'secondTest-desc',
-						'MessagesDirs' => [
-							'secondTest' => [ 'i18n' ]
-						]
-					],
+					'extension.json' => 'nametitle.extension.json',
 					'i18n/en.json' => 'nametitle.i18n.en.json',
 					'i18n/qqq.json' => 'nametitle.i18n.qqq.json',
 				],
@@ -237,15 +215,7 @@ class GeneratorTest extends TestCase {
 				'config' => [],
 				'expectedFileCount' => 4,
 				'expectedFiles' => [
-					'extension.json' => [
-						'name' => 'thirdTest',
-						'namemsg' => 'thirdTest',
-						'author' => [ 'Moe Schmoe' ],
-						'descriptionmsg' => 'thirdTest-desc',
-						'MessagesDirs' => [
-							'thirdTest' => [ 'i18n' ]
-						]
-					],
+					'extension.json' => 'nametitledescauthor.extension.json',
 					'i18n/en.json' => 'nametitledescauthor.i18n.en.json',
 					'i18n/qqq.json' => 'nametitledescauthor.i18n.qqq.json',
 				],
@@ -264,21 +234,11 @@ class GeneratorTest extends TestCase {
 				// but we can make sure that there are 4 files instead of just 3
 				'expectedFileCount' => 5,
 				'expectedFiles' => [
-					'extension.json' => [
-						'name' => 'thirdTest',
-						'namemsg' => 'thirdTest',
-						'author' => [ 'Moe Schmoe' ],
-						'license-name' => 'MIT',
-						'descriptionmsg' => 'thirdTest-desc',
-						'MessagesDirs' => [
-							'thirdTest' => [ 'i18n' ]
-						]
-					],
+					'extension.json' => 'nametitledescauthorlicense.extension.json',
 					'i18n/en.json' => 'nametitledescauthorlicense.i18n.en.json',
 					'i18n/qqq.json' => 'nametitledescauthorlicense.i18n.qqq.json',
 				],
 			],
-
 		];
 		foreach ( $cases as $testCase ) {
 			$generator = new Generator( $testCase['data'], $testCase['config'] );

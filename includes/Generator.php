@@ -57,7 +57,7 @@ class Generator {
 		// Go over the given details
 
 		// Extension file
-		$this->packager->addFile( 'extension.json', $this->details->getExtensionJson( true ) );
+		$this->packager->addFile( 'extension.json', $this->templating->render( 'extension.json', $params ) );
 		$this->packager->addFile( 'CODE_OF_CONDUCT.md', $this->templating->render( 'CODE_OF_CONDUCT.md' ) );
 		$license = $this->details->getLicense();
 		if ( $license ) {
@@ -66,8 +66,6 @@ class Generator {
 		// Language file
 		$this->packager->addFile( 'i18n/en.json', $this->templating->render( 'i18n/en.json', $params ) );
 		$this->packager->addFile( 'i18n/qqq.json', $this->templating->render( 'i18n/qqq.json', $params ) );
-		// $this->packager->addFile( 'i18n/en.json', $this->details->getLangFileJson( 'lang' ) );
-		// $this->packager->addFile( 'i18n/qqq.json', $this->details->getLangFileJson( 'doc' ) );
 
 		// JS Development files
 		if ( $this->details->isEnvironment( 'js' ) ) {

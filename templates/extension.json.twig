@@ -1,0 +1,65 @@
+{
+    "name": "{{ name }}",
+{% if author|length > 0 %}
+    "author": "{{ author }}",
+{% endif %}
+{% if url|length > 0 %}
+    "url": "{{ url }}",
+{% endif %}
+{% if license|length > 0 %}
+    "license-name": "{{ license }}",
+{% endif %}
+    "version": "{{ version }}",
+    "namemsg": "{{ lowerCamelName }}",
+    "descriptionmsg": "{{ lowerCamelName }}-desc",
+    "manifest_version": 1,
+    "MessagesDirs": {
+        "{{ name }}": [ "i18n" ]
+    },
+{% if specialpage.exists %}
+    "AutoloadClasses": [
+        "{{ specialpage.className }}": "specials/{{ specialpage.className }}.php"
+    ],
+{% else %}
+    "AutoloadClasses": [],
+{% endif %}
+{% if parts.javascript %}
+    "ResourceFileModulePaths": {
+        "localBasePath": "modules",
+        "remoteExtPath": "{{ name }}/modules"
+    },
+    "ResourceModules": {
+        "ext.{{ lowerCamelName }}": {
+            "scripts": [
+                "ext.{{ lowerCamelName }}.js"
+            ],
+            "styles": [
+                "ext.{{ lowerCamelName }}.css"
+            ],
+            "messages": [
+                "{{ lowerCamelName }}",
+                "{{ lowerCamelName }}-desc"{% if specialpage.name.name|length > 0 %},{% endif %}
+{% if specialpage.name.i18n|length > 0 %}
+                "{{ specialpage.name.i18n }}-title",
+                "{{ specialpage.name.i18n }}-intro"
+{% endif %}
+            ],
+            "dependencies": []
+        }
+    },
+{% endif %}
+{% if specialpage.exists %}
+    "SpecialPages": {
+        "{{ specialpage.name.name }}": "{{ specialpage.className }}"
+    },
+    "ExtensionMessagesFiles": {
+        "{{ name }}Alias": "{{ name }}.alias.php"
+    },
+{% endif %}
+{% if parts.javascript %}
+    "Hooks": {
+        "ResourceLoaderTestModules": [ "{{ name }}Hooks::onResourceLoaderTestModules" ]
+    },
+{% endif %}
+    "type": "other"
+}

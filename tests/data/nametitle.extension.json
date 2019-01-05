@@ -1,0 +1,12 @@
+{
+    "name": "secondTest",
+    "version": "0.0.0",
+    "namemsg": "secondTest",
+    "descriptionmsg": "secondTest-desc",
+    "manifest_version": 1,
+    "MessagesDirs": {
+        "secondTest": [ "i18n" ]
+    },
+    "AutoloadClasses": [],
+    "type": "other"
+}

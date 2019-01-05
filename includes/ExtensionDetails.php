@@ -149,6 +149,7 @@ class ExtensionDetails {
 				'php' => $this->isEnvironment( 'php' ),
 			),
 			'specialpage' => array(
+				'exists' => $this->hasSpecialPage(),
 				'name' => array(
 					'name' => $this->specialName,
 					'lowerCamelName' => Sanitizer::getLowerCamelFormat( $this->specialName ),

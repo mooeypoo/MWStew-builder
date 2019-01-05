@@ -1,0 +1,13 @@
+{
+    "name": "testName",
+    "url": "http://www.demo.com/testURL",
+    "version": "0.0.0",
+    "namemsg": "testName",
+    "descriptionmsg": "testName-desc",
+    "manifest_version": 1,
+    "MessagesDirs": {
+        "testName": [ "i18n" ]
+    },
+    "AutoloadClasses": [],
+    "type": "other"
+}

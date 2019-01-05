@@ -1,0 +1,13 @@
+{
+    "name": "thirdTest",
+    "author": "Moe Schmoe",
+    "version": "0.0.0",
+    "namemsg": "thirdTest",
+    "descriptionmsg": "thirdTest-desc",
+    "manifest_version": 1,
+    "MessagesDirs": {
+        "thirdTest": [ "i18n" ]
+    },
+    "AutoloadClasses": [],
+    "type": "other"
+}
