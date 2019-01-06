@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create Structure class to define file-structure with corresponding templates
 - Simplify the Generator and use file structures for flexibility
 
+### Removed
+- Removed redundant code functionality to create extension.json data
+
 ## v1.0.1
 ### Added
 - Add CODE_OF_CONDUCT output
