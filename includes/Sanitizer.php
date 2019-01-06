@@ -93,6 +93,7 @@ class Sanitizer {
 				}
 			}
 		}
+
 		return count( $this->errors ) === 0;
 	}
 

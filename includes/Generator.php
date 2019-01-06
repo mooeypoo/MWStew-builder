@@ -54,50 +54,11 @@ class Generator {
 		$this->packager = new Packager();
 
 		$params = $this->details->getAllParams();
-		// Go over the given details
 
-		// Extension file
-		$this->packager->addFile( 'extension.json', $this->templating->render( 'extension.json', $params ) );
-		$this->packager->addFile( 'CODE_OF_CONDUCT.md', $this->templating->render( 'CODE_OF_CONDUCT.md' ) );
-		$license = $this->details->getLicense();
-		if ( $license ) {
-			$this->packager->addFile( 'COPYING', $this->templating->render( "$license.txt" ) );
-		}
-		// Language file
-		$this->packager->addFile( 'i18n/en.json', $this->templating->render( 'i18n/en.json', $params ) );
-		$this->packager->addFile( 'i18n/qqq.json', $this->templating->render( 'i18n/qqq.json', $params ) );
-
-		// JS Development files
-		if ( $this->details->isEnvironment( 'js' ) ) {
-			$this->packager->addFile( '.eslintrc.json', $this->templating->render( '.eslintrc.json' ) );
-			$this->packager->addFile( '.stylelintrc', $this->templating->render( '.stylelintrc' ) );
-			$this->packager->addFile( 'Gruntfile.js', $this->templating->render( 'Gruntfile.js' ) );
-			$this->packager->addFile( 'package.json', $this->templating->render( 'package.json', $params ) );
-			$this->packager->addFile( 'modules/ext.' . $this->details->getLowerCamelName() . '.js', $this->templating->render( 'modules/ext.extension.js', $params ) );
-			$this->packager->addFile( 'modules/ext.' . $this->details->getLowerCamelName() . '.css', $this->templating->render( 'modules/ext.extension.css', $params ) );
-
-			// Add unit test file
-			$this->packager->addFile( 'tests/' . $this->details->getName() . '.test.js', $this->templating->render( 'tests/qunit.js', $params ) );
-			$this->packager->addFile( 'tests/.eslintrc.json', $this->templating->render( 'tests/.eslintrc.json' ) );
-		}
-
-		// PHP Development files
-		if ( $this->details->isEnvironment( 'php' ) ) {
-			$this->packager->addFile( 'composer.json', $this->templating->render( 'composer.json' ) );
-
-			// Add unit test file
-			$this->packager->addFile( 'tests/' . $this->details->getName() . '.test.php', $this->templating->render( 'tests/phpunit.php', $params ) );
-		}
-
-		// Special page
-		// TODO: Allow for more than one special page
-		if ( $this->details->hasSpecialPage() ) {
-			// Special page
-			$this->packager->addFile(
-				'specials/' . $this->details->getSpecialPageClassName() . '.php',
-				$this->templating->render( 'specials/SpecialPage.php', $params )
-			);
-			$this->packager->addFile( $this->details->getName() . '.alias.php', $this->templating->render( 'extension.alias.php', $params ) );
+		// Build the file package
+		$structure = Structure::getFileMap( $params );
+		foreach ( $structure as $filename => $templateName ) {
+			$this->packager->addFile( $filename, $this->templating->render( $templateName, $params ) );
 		}
 	}
 
