@@ -69,5 +69,8 @@ If you want to contribute to the code, clone and initialize locally:
 * See [MWStew](https://github.com/mooeypoo/MWStew) for the graphical interface.
 * See [MWStew-CLI](https://github.com/mooeypoo/MWStew-CLI) for the command line tool.
 
+## Changelog
+See [CHANGELOG](CHANGELOG.md)
+
 ## Authors
 Moriel Schottlender (mooeypoo)
