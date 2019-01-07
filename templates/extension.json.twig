@@ -1,3 +1,15 @@
+{# Set up the message strings #}
+{% set messageStrings %}
+"{{ lowerCamelName }}","{{ lowerCamelName }}-desc","{{ specialpage.name.i18n }}-title","{{ specialpage.name.i18n }}-intro",
+{% endset %}
+{% set messageStrings = messageStrings|split(',') %}
+{% if specialpage.exists %}
+{% set messageStrings = messageStrings|slice(0,4) %}
+{% else %}
+{% set messageStrings = messageStrings|slice(0,2) %}
+{% endif %}
+{# #}
+{# #}
 {
     "name": "{{ name }}",
 {% if author|length > 0 %}
@@ -37,12 +49,7 @@
                 "ext.{{ lowerCamelName }}.css"
             ],
             "messages": [
-                "{{ lowerCamelName }}",
-                "{{ lowerCamelName }}-desc"{% if specialpage.name.name|length > 0 %},{% endif %}
-{% if specialpage.name.i18n|length > 0 %}
-                "{{ specialpage.name.i18n }}-title",
-                "{{ specialpage.name.i18n }}-intro"
-{% endif %}
+                {{ messageStrings|join(',\n                ')|raw }}
             ],
             "dependencies": []
         }
@@ -56,9 +63,11 @@
         "{{ name }}Alias": "{{ name }}.alias.php"
     },
 {% endif %}
-{% if parts.javascript %}
+{% if hooksReference %}
     "Hooks": {
-        "ResourceLoaderTestModules": [ "{{ name }}Hooks::onResourceLoaderTestModules" ]
+{% for hook in hooksReference %}
+        "{{ hook.name }}": [ "{{ hook.reference }}" ]
+{% endfor %}
     },
 {% endif %}
     "type": "other"

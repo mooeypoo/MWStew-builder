@@ -4,12 +4,12 @@ namespace MWStew\Builder;
 
 class Structure {
 	/**
-	 * Create a file map based on the given
+	 * Create a file map based on the given template
 	 * parameters. This will translate the variables
 	 * that are used in the file names to the variables
 	 * that match the ones in the parameters
 	 *
-	 * @see ExtensionDetails#getAllParams for the
+	 * @see ExtensionDetails#getTemplateParams for the
 	 *  expected keys and values for the parameter.
 	 * @param Array $params Template-ready parameters.
 	 *  Expects the structure of parameters that are
@@ -40,6 +40,9 @@ class Structure {
 		}
 		if ( $params[ 'specialpage' ][ 'exists' ] ) {
 			$fileList = $fileList + $structure[ 'special' ];
+		}
+		if ( count( $params[ 'hooksReference' ] ) > 0 ) {
+			$fileList = $fileList + $structure[ 'hooks' ];
 		}
 
 		foreach ( $fileList as $outputFile => $templateName ) {
@@ -88,11 +91,14 @@ class Structure {
 				'modules/ext.%LOWER_CAMEL_NAME%.js' => 'modules/ext.extension.js',
 				'modules/ext.%LOWER_CAMEL_NAME%.css' => 'modules/ext.extension.css',
 				'tests/%NAME%.test.js' => 'tests/qunit.js',
-				'tests/.eslintrc.json' => '',
+				'tests/.eslintrc.json' => ''
 			],
 			'php' => [
 				'composer.json' => '',
 				'tests/%NAME%.test.php' => 'tests/phpunit.php'
+			],
+			'hooks' => [
+				'%NAME%Hooks.php' => 'Hooks.php',
 			],
 			'special' => [
 				'specials/%SPECIAL_CLASSNAME%.php' => 'specials/SpecialPage.php',

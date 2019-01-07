@@ -66,6 +66,7 @@ class StructureTest extends TestCase {
 					'modules/ext.testName.css',
 					'tests/testName.test.js',
 					'tests/.eslintrc.json',
+					'testNameHooks.php',
 				]
 			],
 			[
@@ -98,6 +99,7 @@ class StructureTest extends TestCase {
 					'tests/.eslintrc.json',
 					'composer.json',
 					'tests/testName.test.php',
+					'testNameHooks.php',
 				]
 			],
 			[
@@ -125,7 +127,8 @@ class StructureTest extends TestCase {
 					'composer.json',
 					'tests/testName.test.php',
 					'specials/SpecialFoobar.php',
-					'testName.alias.php'
+					'testName.alias.php',
+					'testNameHooks.php',
 				]
 			],
 		];
@@ -133,7 +136,7 @@ class StructureTest extends TestCase {
 		foreach ( $cases as $testCase ) {
 			// Only used to produce twig-ready params
 			$details = new ExtensionDetails( $testCase[ 'data' ] );
-			$params = $details->getAllParams();
+			$params = $details->getTemplateParams();
 			$this->assertEquals(
 				$testCase[ 'expected' ],
 				array_keys( Structure::getFileMap( $params ) ),

@@ -1,0 +1,34 @@
+{
+    "name": "FooBar",
+    "version": "0.0.0",
+    "namemsg": "fooBar",
+    "descriptionmsg": "fooBar-desc",
+    "manifest_version": 1,
+    "MessagesDirs": {
+        "FooBar": [ "i18n" ]
+    },
+    "AutoloadClasses": [],
+    "ResourceFileModulePaths": {
+        "localBasePath": "modules",
+        "remoteExtPath": "FooBar/modules"
+    },
+    "ResourceModules": {
+        "ext.fooBar": {
+            "scripts": [
+                "ext.fooBar.js"
+            ],
+            "styles": [
+                "ext.fooBar.css"
+            ],
+            "messages": [
+                "fooBar",
+                "fooBar-desc"
+            ],
+            "dependencies": []
+        }
+    },
+    "Hooks": {
+        "ResourceLoaderTestModules": [ "FooBarHooks::onResourceLoaderTestModules" ]
+    },
+    "type": "other"
+}

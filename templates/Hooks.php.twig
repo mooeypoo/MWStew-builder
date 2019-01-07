@@ -4,7 +4,9 @@
  *
  * @file
  * @ingroup Extensions
+{% if license|length > 0 %}
  * @license {{ license }}
+{% endif %}
  */
 class {{ name }}Hooks {
 {% if parts.javascript %}
@@ -30,11 +32,9 @@ class {{ name }}Hooks {
 		return true;
 	}
 {% endif %}
-
 {# HOOKS #}
-
-{% for hook in hooks %}
-{% include '_hooks/' ~ hook ~ '.php.twig' %}
+{% for hook in hookMethods %}
+{{ hook|raw }}
 
 {% endfor %}
 }

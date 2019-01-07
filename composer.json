@@ -19,7 +19,8 @@
         "php-coveralls/php-coveralls": "^2.1"
 	},
   "scripts": {
-    "test": "./vendor/bin/phpunit --colors --verbose --coverage-clover './build/logs/phpunit_clover.xml' --configuration tests/phpunit.xml"
+    "test": "./vendor/bin/phpunit --colors=\"always\" --verbose --coverage-clover './build/logs/phpunit_clover.xml' --configuration tests/phpunit.xml",
+    "populate-hooks": "./bin/populatehooks"
   },
   "autoload": {
     "psr-4": { "MWStew\\Builder\\": "includes/" }

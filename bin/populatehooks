@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+$basedir = dirname( __DIR__ );
+require_once $basedir . '/vendor/autoload.php';
+
+$api = new \MWStew\Builder\APIMediaWikiHooks();
+
+$rawHooksJson = null;
+if ( file_exists( $basedir . '/build/data/raw.json' ) ) {
+    $existingHookFile = file_get_contents( $basedir . '/build/data/raw.json' );
+    $rawHooksJson = json_decode( $existingHookFile );
+} else {
+    $rawHooksJson = $api->getAllHooksFromAPI();
+    file_put_contents( $basedir . '/build/data/raw.json', json_encode( $rawHooksJson ) );
+}
+
+$hooks = $api->process( $rawHooksJson );
+file_put_contents( $basedir . '/templates/_hooks/data/hooks.json', json_encode( $hooks['processed'] ) );
+file_put_contents( $basedir . '/build/data/unprocessed.json', json_encode( $hooks['unprocessed'] ) );
+
+echo "Files created:\n";
+echo "* Processed hook data: $basedir/templates/_hooks/data/hooks.json\n";
+echo "* Hooks from API response: $basedir/build/data/raw.json\n";
+echo "* Hooks that failed processing: $basedir/build/data/unprocessed.json\n";
+echo "DONE.\n";

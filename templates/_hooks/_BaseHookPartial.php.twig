@@ -1,0 +1,27 @@
+	/**
+	 * {{ summary }}
+	 *
+{% if unrecognized %}
+	 * NOTE: This method was automatically created from an unrecognized hook.
+	 * Please validate that you are using the correct hook and method
+	 * signatures.
+{% endif %}
+{% if version %}
+	 * @since {{ version }}
+{% endif %}
+{% if deprecated %}
+	 * @deprecated since {{ deprecated }}
+{% endif %}
+{% if unrecognized == false %}
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/{{ name }}
+{% endif %}
+{% if argsarr|length > 0 %}
+	 *
+{% for arg in argsarr %}
+	 * @param {{ arg|raw }}
+{% endfor %}
+{% endif %}
+	 */
+	public static function {{ functionName }}( {{ args|raw }} ) {
+		/* Your code here */
+	}

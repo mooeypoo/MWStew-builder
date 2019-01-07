@@ -1,0 +1,7 @@
+{
+    "@metadata": {
+        "authors": []
+    },
+    "fooBar": "The name of the extension",
+    "fooBar-desc": "{{desc|name=FooBar|url=}}"
+}

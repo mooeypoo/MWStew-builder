@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- MediaWiki hooks are now available again; added a build option to update known hooks from the MediaWiki API and store the information for reuse in the system. Unknown hooks are built through a standalone template into the extension file code.
 - Add... a changelog!
 
 ### Changed

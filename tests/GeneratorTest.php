@@ -4,25 +4,6 @@ use MWStew\Builder\Generator;
 use PHPUnit\Framework\TestCase;
 
 class GeneratorTest extends TestCase {
-	private $baseFileStructure = [
-		'extension.json' => [
-			'name' => '',
-			'version' => '0.0.0',
-			'namemsg' => '',
-			'descriptionmsg' => '',
-			'type' => 'other',
-			'manifest_version' => 1,
-			'MessagesDirs' => [],
-			'AutoloadClasses' => []
-		],
-		'i18n/en.json' => [
-			'@metadata' => [ 'authors' => [] ]
-		],
-		'i18n/qqq.json' => [
-			'@metadata' => [ 'authors' => [] ],
-		],
-	];
-
 	public function testGeneratorTools() {
 		$obj = [
 			'one' => 'two',
@@ -121,6 +102,7 @@ class GeneratorTest extends TestCase {
 					'modules/ext.testName.css',
 					'tests/testName.test.js',
 					'tests/.eslintrc.json',
+					'testNameHooks.php',
 				]
 			],
 			[
@@ -153,6 +135,18 @@ class GeneratorTest extends TestCase {
 					'tests/.eslintrc.json',
 					'composer.json',
 					'tests/testName.test.php',
+					'testNameHooks.php',
+				]
+			],
+			[
+				'data' => [ 'name' => 'testName', 'hooks' => [ 'foo::bar' ] ],
+				'msg' => 'Add hooks',
+				'expected' => [
+					'extension.json',
+					'CODE_OF_CONDUCT.md',
+					'i18n/en.json',
+					'i18n/qqq.json',
+					'testNameHooks.php',
 				]
 			],
 		];
@@ -176,7 +170,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'Giving name only',
 				'config' => [],
 				'expectedFileCount' => 4,
-				'expectedFiles' => [
+				'expectedFileContent' => [
 					'extension.json' => 'nameonly.extension.json',
 					'i18n/en.json' => 'nameonly.i18n.en.json',
 					'i18n/qqq.json' => 'nameonly.i18n.qqq.json',
@@ -187,7 +181,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'Giving name and URL',
 				'config' => [],
 				'expectedFileCount' => 4,
-				'expectedFiles' => [
+				'expectedFileContent' => [
 					'extension.json' => 'nameurl.extension.json',
 					'i18n/en.json' => 'nameurl.i18n.en.json',
 					'i18n/qqq.json' => 'nameurl.i18n.qqq.json',
@@ -198,7 +192,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'Giving name and display name',
 				'config' => [],
 				'expectedFileCount' => 4,
-				'expectedFiles' => [
+				'expectedFileContent' => [
 					'extension.json' => 'nametitle.extension.json',
 					'i18n/en.json' => 'nametitle.i18n.en.json',
 					'i18n/qqq.json' => 'nametitle.i18n.qqq.json',
@@ -214,7 +208,7 @@ class GeneratorTest extends TestCase {
 				'msg' => 'Supplying name, title, description, author',
 				'config' => [],
 				'expectedFileCount' => 4,
-				'expectedFiles' => [
+				'expectedFileContent' => [
 					'extension.json' => 'nametitledescauthor.extension.json',
 					'i18n/en.json' => 'nametitledescauthor.i18n.en.json',
 					'i18n/qqq.json' => 'nametitledescauthor.i18n.qqq.json',
@@ -233,10 +227,33 @@ class GeneratorTest extends TestCase {
 				// We will not check the contents of the license file,
 				// but we can make sure that there are 4 files instead of just 3
 				'expectedFileCount' => 5,
-				'expectedFiles' => [
+				'expectedFileContent' => [
 					'extension.json' => 'nametitledescauthorlicense.extension.json',
 					'i18n/en.json' => 'nametitledescauthorlicense.i18n.en.json',
 					'i18n/qqq.json' => 'nametitledescauthorlicense.i18n.qqq.json',
+				],
+			],
+			[
+				'data' => [ 'name' => 'FooBar', 'dev_js' => true ],
+				'msg' => 'Javascript environment',
+				'config' => [],
+				'expectedFileCount' => 13,
+				'expectedFileContent' => [
+					// Skipping the comparison to files that are static and do note
+					// depend on template parameters.
+					// 'CODE_OF_CONDUCT.md',
+					// '.eslintrc.json',
+					// '.stylelintrc',
+					// 'Gruntfile.js',
+					// 'package.json',
+					// 'tests/.eslintrc.json',
+					'FooBarHooks.php' => 'jsenv.Hooks.php',
+					'extension.json' => 'jsenv.extension.json',
+					'modules/ext.fooBar.js' => 'jsenv.module.js',
+					'modules/ext.fooBar.css' => 'jsenv.module.css',
+					'tests/FooBar.test.js' => 'jsenv.tests.qunit.js',
+					'i18n/en.json' => 'jsenv.i18n.en.json',
+					'i18n/qqq.json' => 'jsenv.i18n.qqq.json',
 				],
 			],
 		];
@@ -249,19 +266,8 @@ class GeneratorTest extends TestCase {
 				count( array_keys( $files ) ),
 				$testCase['msg'] . ': Number of files'
 			);
-
-			foreach ( $testCase['expectedFiles'] as $fName => $fContent ) {
-				if ( is_array( $fContent ) ) {
-					$expected = json_encode(
-						$this->getArrayExtendedCopy(
-							$this->baseFileStructure[$fName],
-							$fContent
-						),
-						JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE
-					);
-				} else {
-					$expected = file_get_contents( __DIR__ . '/data/' . $fContent );
-				}
+			foreach ( $testCase['expectedFileContent'] as $fName => $fContent ) {
+				$expected = file_get_contents( __DIR__ . '/data/' . $fContent );
 
 				$this->assertEquals(
 					$expected,

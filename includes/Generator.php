@@ -53,7 +53,7 @@ class Generator {
 		$this->templating = new Templating( $this->cacheDir );
 		$this->packager = new Packager();
 
-		$params = $this->details->getAllParams();
+		$params = $this->details->getTemplateParams();
 
 		// Build the file package
 		$structure = Structure::getFileMap( $params );
