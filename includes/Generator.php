@@ -32,6 +32,8 @@ class Generator {
 	 *    'specialpage_intro' => (string) A short description or introduction
 	 *      text for the special page. This will appear at the top of the
 	 *      new special page that is created.
+	 *    'hooks' => (array) An array of strings representing hooks to be
+	 *      added to the system.
 	 *  ]
 	 * @param array $config Configuration object.
 	 *  $config = [

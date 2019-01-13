@@ -40,6 +40,7 @@ $data = [
   'specialpage_name' => (string) A name for a sepcial page. Must use valid characters for MediaWiki title.
   'specialpage_title' => (string) A title for the special page.
   'specialpage_intro' => (string) A short description or introduction text for the special page. This will appear at the top of the new special page that is created.
+  'hooks' => (array) An array of strings representing hooks to be added to the system.
 ]
 ```
 ### Using the files
