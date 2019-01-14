@@ -34,7 +34,7 @@ class APIMediaWikiHooks {
 			}
 
 			// Check if this is a translation of a hook (sub page)
-			$subpages = explode( '\/', $name );
+			$subpages = explode( '/', $name );
 			if ( count( $subpages ) > 1 ) {
 				if ( $subpages[ 1 ] !== 'en' ) {
 					// If this translation is anything but english, skip it
@@ -47,7 +47,7 @@ class APIMediaWikiHooks {
 			$templWikitextParams = trim( $matches[ count( $matches ) - 1 ] );
 			$templWikitextParamsArray = explode( '|', $templWikitextParams );
 			$processed[ $name ] = [];
-			$recognizedKeys = [ 'name', 'version', 'args', 'summary', 'source' ];
+			$recognizedKeys = [ 'name', 'version', 'deprecated', 'args', 'summary', 'source' ];
 			foreach ( $templWikitextParamsArray as $twParam ) {
 				if ( $twParam ) {
 					$data = explode( '=', $twParam );

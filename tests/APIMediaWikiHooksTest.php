@@ -19,18 +19,18 @@ class APIMediaWikiHooksTest extends TestCase {
 					"PrefixSearchExtractNamespace" => '{{TNT|MediaWikiHook\n|name = PrefixSearchExtractNamespace\n|version = 1.25.0\n|gerrit = 168167\n|removed =\n|summary = Called if core was not able to extract a namespace from the search string so that extensions can attempt it.\n|args = &$namespaces, &$search\n|source = PrefixSearch.php\n|source2 = SearchEngine.php\n|sourcefunction =\n|sourceclass =\n|newvarname =\n|newvarlink =\n}}',
 
 					// TNT|MediaWikiHook + translation
-					"MovePageCheckPermissions\/en" => '<languages \/>\n{{TNT|MediaWikiHook\n|name=MovePageCheckPermissions\n|version=1.25.0\n|args=Title $oldTitle, Title $newTitle, User $user, $reason, Status $status\n|source=MovePage.php\n|summary=Specify whether the user is allowed to move the page.\n}}',
+					"MovePageCheckPermissions/en" => '<languages \/>\n{{TNT|MediaWikiHook\n|name=MovePageCheckPermissions\n|version=1.25.0\n|args=Title $oldTitle, Title $newTitle, User $user, $reason, Status $status\n|source=MovePage.php\n|summary=Specify whether the user is allowed to move the page.\n}}',
 					// MediaWikiHook template
-					"ParserFirstCallInit\/en" => '<languages\/>\n{{MediaWikiHook\n|name=ParserFirstCallInit\n|version=1.12.0\n|args=Parser &$parser\n|summary=called when the parser initializes for the first time\n|source=Parser.php\n|sourceclass=Parser\n|sourcefunction=firstCallInit\n}}',
+					"ParserFirstCallInit/en" => '<languages\/>\n{{MediaWikiHook\n|name=ParserFirstCallInit\n|version=1.12.0\n|args=Parser &$parser\n|summary=called when the parser initializes for the first time\n|source=Parser.php\n|sourceclass=Parser\n|sourcefunction=firstCallInit\n}}',
 
 					// Contains ::
 					"Article::MissingArticleConditions" => '{{TNT|MediaWikiHook\n|name=Article::MissingArticleConditions\n|version=1.23.0\n|args=&$conds, $logTypes\n|source=Article.php\n|summary=Before fetching deletion & move log entries to display a message of a non-existing page being deleted\/moved, give extensions a chance to hide their (unrelated) log entries.\n}}',
 
 					// English translation + has a space (replaced with underscore)
-					"RecentChange save\/en" => '<languages \/>\n{{TNT|MediaWikiHook\n|name=RecentChange_save\n|version=1.8.0\n|args=&$recentChange\n|source=RecentChange.php\n|summary=called at the end of RecentChange::save()\n}}',
+					"RecentChange save/en" => '<languages \/>\n{{TNT|MediaWikiHook\n|name=RecentChange_save\n|version=1.8.0\n|args=&$recentChange\n|source=RecentChange.php\n|summary=called at the end of RecentChange::save()\n}}',
 
 					// Non English translation (=> unprocessed)
-					"FooBarBaz\/fr" => '{{MediaWikiHook\n|name=ParserFirstCallInit\n|version=1.12.0\n|args=Parser &$parser\n|summary=called when the parser initializes for the first time\n|source=Parser.php\n|sourceclass=Parser\n|sourcefunction=firstCallInit\n}}',
+					"FooBarBaz/fr" => '{{MediaWikiHook\n|name=ParserFirstCallInit\n|version=1.12.0\n|args=Parser &$parser\n|summary=called when the parser initializes for the first time\n|source=Parser.php\n|sourceclass=Parser\n|sourcefunction=firstCallInit\n}}',
 
 					// Undocumented (=> unprocessed)
 					"ApiMain::moduleManager" => "{{Undocumented Mediawiki Hook}}",
@@ -38,7 +38,7 @@ class APIMediaWikiHooksTest extends TestCase {
 				'expected' => [
 					'unprocessed' => [
 						"ApiMain::moduleManager" => "{{Undocumented Mediawiki Hook}}",
-						"FooBarBaz\/fr" => '{{MediaWikiHook\n|name=ParserFirstCallInit\n|version=1.12.0\n|args=Parser &$parser\n|summary=called when the parser initializes for the first time\n|source=Parser.php\n|sourceclass=Parser\n|sourcefunction=firstCallInit\n}}',
+						"FooBarBaz/fr" => '{{MediaWikiHook\n|name=ParserFirstCallInit\n|version=1.12.0\n|args=Parser &$parser\n|summary=called when the parser initializes for the first time\n|source=Parser.php\n|sourceclass=Parser\n|sourcefunction=firstCallInit\n}}',
 					],
 					'processed' => [
 						'ArticleDeleteComplete' => [

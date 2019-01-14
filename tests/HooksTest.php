@@ -10,7 +10,7 @@ class HooksTest extends TestCase {
 		$this->assertEquals(
 			// This number might need to be updated
 			// when hooks are pulled from the API again
-			667,
+			608,
 			count( $hooks->getHookNames() )
 		);
 	}
