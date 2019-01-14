@@ -75,4 +75,23 @@ class HooksTest extends TestCase {
 			);
 		}
 	}
+	public function testNormalizeHookName() {
+		$cases = [
+			'articledelete' => 'ArticleDelete',
+			'adDNeWaCcOuNt' => 'AddNewAccount',
+			'editpage::importformdata' => 'EditPage::importFormData',
+			'fooBarBaz' => 'FooBarBaz', // Not found; capitalize
+			'f%oo B*&a%rB!a|z123  ' => 'FooBarBaz123', // Not found; clean up and capitalize
+		];
+
+		$hooks = new Hooks();
+		foreach ( $cases as $lookup => $expected ) {
+			$this->assertEquals(
+				$expected,
+				$hooks->normalizeHookName( $lookup ),
+				"Normalizing: $lookup => $expected"
+			);
+		}
+
+	}
 }

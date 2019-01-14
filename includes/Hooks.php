@@ -6,12 +6,21 @@ namespace MWStew\Builder;
  * Read hook data and parse it for processing twig templates
  */
 class Hooks {
+	protected $data;
+	protected $templating;
+	protected $lookupMap = [];
+
 	public function __construct( $templating = null ) {
 		$filename = dirname( __DIR__ ) . '/templates/_hooks/data/hooks.json';
 		$this->data = json_decode( file_get_contents( $filename ), true );
 		$this->templating = $templating;
 		if ( !$this->templating ) {
 			$this->templating = new Templating();
+		}
+
+		// Create a search map (lowercase => proper case) for searches
+		foreach ( array_keys( $this->data ) as $hookName ) {
+			$this->lookupMap[ strtolower( $hookName ) ] = $hookName;
 		}
 	}
 
@@ -35,7 +44,7 @@ class Hooks {
 	}
 
 	public function getHookContent( $hookName ) {
- 		$hookName = ucfirst( $hookName );
+		$hookName = $this->normalizeHookName( $hookName );
 		$data = $this->getHookData( $hookName );
 		if ( !$data ) {
 			$data = [
@@ -106,12 +115,33 @@ class Hooks {
 		return 'on' . $className;
 	}
 
-	public function getHookData( $hookName = null ) {
+	public function getHookData( $hookName = '' ) {
+		$hookName = $this->normalizeHookName( $hookName );
+
 		$data = null;
 		if ( $hookName !== null ) {
 			$data = Generator::getObjectProp( $this->data, [ $hookName ] );
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Normalize the given hook name:
+	 * - If the name is found in the system, normalize it
+	 * to use the proper capitalization.
+	 * - If it is not found, return it as-is
+	 *
+	 * @param string $hookName Given hook name
+	 * @return string Normalized hook name
+	 */
+	public function normalizeHookName( $hookName = '' ) {
+		$foundHookName = Generator::getObjectProp( $this->lookupMap, [ strtolower( $hookName ) ] );
+
+		if ( !$foundHookName ) {
+			$hookName = ucfirst( preg_replace( '/[^A-Za-z0-9\-]/', '', $hookName ) );
+		}
+		// Unrecognized hooks should at least be capitalized
+		return $foundHookName ? $foundHookName : ucfirst( $hookName );
 	}
 }
