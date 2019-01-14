@@ -4,7 +4,6 @@
 			<directory>../includes</directory>
 			<exclude>
 				<file>../includes/Zipper.php</file>
-				<file>../includes/APIMediaWikiHooks.php</file>
 			</exclude>
 		</whitelist>
 	</filter>

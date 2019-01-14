@@ -6,8 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## v1.1.0
 ### Added
-- MediaWiki hooks are now available again; added a build option to update known hooks from the MediaWiki API and store the information for reuse in the system. Unknown hooks are built through a standalone template into the extension file code.
+- MediaWiki hooks are now available again:
+  - Added a build option to update known hooks from the MediaWiki API and store the information in the distributed package.
+  - Known hooks would be written with a function that has their signature and details
+  - Unknown hooks are built through a standalone template into the extension file code.
 - Add... a changelog!
 
 ### Changed

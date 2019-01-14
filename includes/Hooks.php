@@ -18,7 +18,7 @@ class Hooks {
 			$this->templating = new Templating();
 		}
 
-		// Create a search map (lowercase => proper case) for searches
+		// Create a search map (lowercase => mixed case) for searches
 		foreach ( array_keys( $this->data ) as $hookName ) {
 			$this->lookupMap[ strtolower( $hookName ) ] = $hookName;
 		}

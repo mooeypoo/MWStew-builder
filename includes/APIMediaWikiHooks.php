@@ -10,6 +10,8 @@ class APIMediaWikiHooks {
 	public static $MAX_REQUESTS = 50;
 
 	public function process( $hooks = null ) {
+		// TODO: Clean up hooks that have a slash (translations)
+		// but keep /en ones for the summaries/details
 		$templateRegex = '/(\{\{( ?\{\{)?(TNTN?\|)?MediaWikiHook(\}\})?)(.*?)\}\}/';
 		$processed = [];
 		$unprocessed = [];
@@ -22,6 +24,8 @@ class APIMediaWikiHooks {
 			// echo "Processing $name\n";
 			// Extract the {{TNT|MediaWikiHook ... }} template
 			$wikitext = trim(preg_replace('/\s+/', ' ', $wikitext));
+			// Replace spaces in the name with underscores
+			$name = preg_replace('/\s+/', '_', $name );
 			preg_match( $templateRegex, $wikitext, $matches );
 
 			if ( count( $matches ) === 0 ) {
@@ -29,14 +33,30 @@ class APIMediaWikiHooks {
 				continue;
 			}
 
+			// Check if this is a translation of a hook (sub page)
+			$subpages = explode( '\/', $name );
+			if ( count( $subpages ) > 1 ) {
+				if ( $subpages[ 1 ] !== 'en' ) {
+					// If this translation is anything but english, skip it
+					$unprocessed[ $name ] = $wikitext;
+					continue;
+				}
+				$name = $subpages[ 0 ];
+			}
+
 			$templWikitextParams = trim( $matches[ count( $matches ) - 1 ] );
 			$templWikitextParamsArray = explode( '|', $templWikitextParams );
 			$processed[ $name ] = [];
+			$recognizedKeys = [ 'name', 'version', 'args', 'summary', 'source' ];
 			foreach ( $templWikitextParamsArray as $twParam ) {
 				if ( $twParam ) {
 					$data = explode( '=', $twParam );
-					if ( count( $data ) === 2 ) {
-						$processed[ $name ][ trim( $data[0] ) ] = trim( $data[1] );
+					if (
+						count( $data ) === 2 &&
+						// Only add recognized keys
+						in_array( trim( $data[0] ), $recognizedKeys )
+					) {
+						$processed[ $name ][ trim( $data[0] ) ] = trim( str_replace( '\n', '', $data[1] ) );
 					}
 				}
 			}
