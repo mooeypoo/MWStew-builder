@@ -172,17 +172,17 @@ class ExtensionDetails {
 		$hookDefinition = Hooks::getExtJsonHookDefinitionArray( $this->name, $this->getHooks() );
 		if ( $this->isEnvironment( 'js' ) ) {
 			// Add the Javascript test hook if needed
-			$hookDefinition[ 'ResourceLoaderTestModules'] = "{$this->name}Hooks::onResourceLoaderTestModules";
+			$hookDefinition[ 'ResourceLoaderTestModules' ] = "{$this->name}Hooks::onResourceLoaderTestModules";
 		}
 
 		// Transform to a flat array:
 		$hookArray = [];
 		foreach ( $hookDefinition as $hookName => $localReference ) {
-			// $hookArray[] = "\"$hookName\": [ \"$localReference\" ]";
-			$hookArray[] = [
-				'name' => $hookName,
-				'reference' => $localReference,
-			];
+			$hookArray[] = '"' . $hookName . '": [ "' . $localReference . '" ]';
+			// $hookArray[] = [
+			// 	'name' => $hookName,
+			// 	'reference' => $localReference,
+			// ];
 		}
 		$params[ 'hooksReference' ] = $hookArray;
 

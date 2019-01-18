@@ -29,9 +29,9 @@
         "{{ name }}": [ "i18n" ]
     },
 {% if specialpage.exists %}
-    "AutoloadClasses": [
+    "AutoloadClasses": {
         "{{ specialpage.className }}": "specials/{{ specialpage.className }}.php"
-    ],
+    },
 {% else %}
     "AutoloadClasses": [],
 {% endif %}
@@ -65,9 +65,7 @@
 {% endif %}
 {% if hooksReference %}
     "Hooks": {
-{% for hook in hooksReference %}
-        "{{ hook.name }}": [ "{{ hook.reference }}" ]
-{% endfor %}
+        {{ hooksReference|join(',\n                ')|raw }}
     },
 {% endif %}
     "type": "other"

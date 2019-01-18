@@ -127,10 +127,7 @@ class ExtensionDetailsTest extends TestCase {
 						'javascript' => true,
 					],
 					'hooksReference' => [
-						[
-							'name' => 'ResourceLoaderTestModules',
-							'reference' => 'BarBazHooks::onResourceLoaderTestModules',
-						]
+						'"ResourceLoaderTestModules": [ "BarBazHooks::onResourceLoaderTestModules" ]',
 					]
 				],
 			],
@@ -171,14 +168,8 @@ class ExtensionDetailsTest extends TestCase {
 					'lowerCamelName' => 'barBazThing',
 					'title' => 'Bar Baz Thing',
 					'hooksReference' => [
-						[
-							'name' => 'unrecognized::hook:thing',
-							'reference' => 'BarBazThingHooks::onUnrecognizedHookThing'
-						],
-						[
-							'name' => 'ArticleDeleteComplete',
-							'reference' => 'BarBazThingHooks::onArticleDeleteComplete'
-						],
+						'"unrecognized::hook:thing": [ "BarBazThingHooks::onUnrecognizedHookThing" ]',
+						'"ArticleDeleteComplete": [ "BarBazThingHooks::onArticleDeleteComplete" ]'
 					],
 					// We'll test hook methods output in another test
 					// 'hookMethods' => []
@@ -201,18 +192,9 @@ class ExtensionDetailsTest extends TestCase {
 						'javascript' => true,
 					],
 					'hooksReference' => [
-						[
-							'name' => 'unrecognized::hook:thing',
-							'reference' => 'BarBazThingHooks::onUnrecognizedHookThing'
-						],
-						[
-							'name' => 'ArticleDeleteComplete',
-							'reference' => 'BarBazThingHooks::onArticleDeleteComplete'
-						],
-						[
-							'name' => 'ResourceLoaderTestModules',
-							'reference' => 'BarBazThingHooks::onResourceLoaderTestModules'
-						],
+						'"unrecognized::hook:thing": [ "BarBazThingHooks::onUnrecognizedHookThing" ]',
+						'"ArticleDeleteComplete": [ "BarBazThingHooks::onArticleDeleteComplete" ]',
+						'"ResourceLoaderTestModules": [ "BarBazThingHooks::onResourceLoaderTestModules" ]',
 					]
 				],
 			],
