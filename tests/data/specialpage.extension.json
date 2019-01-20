@@ -1,0 +1,20 @@
+{
+    "name": "FooBar",
+    "version": "0.0.0",
+    "namemsg": "fooBar",
+    "descriptionmsg": "fooBar-desc",
+    "manifest_version": 1,
+    "MessagesDirs": {
+        "FooBar": [ "i18n" ]
+    },
+    "AutoloadClasses": {
+        "SpecialFooBarPage": "specials/SpecialFooBarPage.php"
+    },
+    "SpecialPages": {
+        "FooBarPage": "SpecialFooBarPage"
+    },
+    "ExtensionMessagesFiles": {
+        "FooBarAlias": "FooBar.alias.php"
+    },
+    "type": "other"
+}

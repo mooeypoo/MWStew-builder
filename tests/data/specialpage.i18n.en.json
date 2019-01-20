@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": []
+    },
+    "fooBar": "FooBar",
+    "fooBar-desc": "",
+    "special-fooBarPage-title": "This is the FooBar page",
+    "special-fooBarPage-intro": "Introduction to Foobar"
+}

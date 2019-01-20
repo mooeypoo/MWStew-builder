@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": []
+    },
+    "fooBar": "The name of the extension",
+    "fooBar-desc": "{{desc|name=FooBar|url=}}",
+    "special-fooBarPage-title": "Title of the special page Special:FooBarPage",
+    "special-fooBarPage-intro": "Description appearing on top of <tvar|1>Special:{{ll|FooBarPage}}</>."
+}

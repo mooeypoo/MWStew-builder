@@ -75,6 +75,19 @@ class ExtensionDetailsTest extends TestCase {
 				]
 			],
 			[
+				'msg' => 'Non-numeric version format',
+				'input' => [
+					'name' => 'FooBar',
+					'version' => 'v1-alpha'
+				],
+				'expected' => [
+					'name' => 'FooBar',
+					'title' => 'FooBar',
+					'lowerCamelName' => 'fooBar',
+					'version' => 'v1-alpha',
+				]
+			],
+			[
 				'msg' => 'Full data but no extras',
 				'input' => [
 					'name' => 'BarBaz',
