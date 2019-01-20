@@ -256,6 +256,22 @@ class GeneratorTest extends TestCase {
 					'i18n/qqq.json' => 'jsenv.i18n.qqq.json',
 				],
 			],
+			[
+				'data' => [
+					'name' => 'FooBar',
+					'specialpage_name' => 'FooBarPage',
+					'specialpage_title' => 'This is the FooBar page',
+					'specialpage_intro' => 'Introduction to Foobar'
+				],
+				'msg' => 'Special page',
+				'config' => [],
+				'expectedFileCount' => 6,
+				'expectedFileContent' => [
+					'extension.json' => 'specialpage.extension.json',
+					'i18n/en.json' => 'specialpage.i18n.en.json',
+					'i18n/qqq.json' => 'specialpage.i18n.qqq.json',
+				],
+			],
 		];
 		foreach ( $cases as $testCase ) {
 			$generator = new Generator( $testCase['data'], $testCase['config'] );

@@ -9,9 +9,11 @@
 {% endif %}
     },
     "{{ lowerCamelName }}": "The name of the extension",
+{% if not specialpage.exists %}
     "{{ lowerCamelName }}-desc": "{{'{{'}}desc|name={{ name }}|url={{ url }}{{ '}}' }}"
-{% if specialpage.name.name %}
+{% else %}
+    "{{ lowerCamelName }}-desc": "{{'{{'}}desc|name={{ name }}|url={{ url }}{{ '}}' }}",
     "{{ specialpage.name.i18n }}-title": "Title of the special page Special:{{ specialpage.name.name }}",
-    "{{ specialpage.name.i18n }}-intro": "Description appearing on top of <tvar|1>Special:{{ '{{' }}ll|{{ specialpage.name.name }}{{ '}}' }}</>.",
+    "{{ specialpage.name.i18n }}-intro": "Description appearing on top of <tvar|1>Special:{{ '{{' }}ll|{{ specialpage.name.name }}{{ '}}' }}</>."
 {% endif %}
 }
