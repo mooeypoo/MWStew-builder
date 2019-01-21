@@ -59,11 +59,15 @@ class Sanitizer {
 				'optional' => array( 'special_name' ),
 			),
 			// Numbers
-			array(
-				'validator' => $this->getValidator( 'numbers' ),
-				'fields' => array( 'version' ),
-				'optional' => array( 'version' ),
-			),
+			// TODO: Versions should be normalized, at best, but not
+			// prevented if they don't fit the numeric value.
+			// 'v1.0-rc' should be accepted, for example.
+			// Commenting this out until a better strategy is set.
+			// array(
+			// 	'validator' => $this->getValidator( 'numbers' ),
+			// 	'fields' => array( 'version' ),
+			// 	'optional' => array( 'version' ),
+			// ),
 			// Booleans
 			array(
 				'validator' => $this->getValidator( 'booleans' ),
